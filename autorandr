@@ -118,7 +118,7 @@ current_cfg_xrandr() {
 	if [ -x "$XDPYINFO" ]; then
 		PRIMARY_SETUP="$($XDPYINFO -ext XINERAMA | awk '/^  head #0:/ {printf $3 $5}')"
 	fi
-	$XRANDR -q | awk -v primary_setup="${PRIMARY_SETUP}" '
+	$XRANDR -q | sed 's/ primary//' | awk -v primary_setup="${PRIMARY_SETUP}" '
 	# display is connected and has a mode
 	/^[^ ]+ connected [^(]/ {
 		split($3, A, "+");
